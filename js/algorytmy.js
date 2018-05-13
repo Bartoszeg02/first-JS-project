@@ -18,6 +18,8 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 
     main_picture = document.getElementById("main_picture_1");
 
+    sztandar = document.getElementById("xxx");
+
 function view_Rainhards_army(shields, crossbows){
     var shields,
         crossbows;
@@ -46,34 +48,38 @@ function view_Galahads_army(shields, crossbows){
     number_of_crossbowmen_G.innerHTML = crossbows;
 }
 
-
 function change_screen_content(){
     console.log(0);
     main_picture.src='grafika/Armia.jpg';
 }
 
+function toggle_view(){
+    sztandar.classList.add(".hidden");
+
+}
+
 
 // **** EVENTS **** 
-button_fill_in_Rainhards_army.onclick = function(e){
+button_fill_in_Rainhards_army.onclick = function(){
     var numberShieldbearersR = input_Rainhards_shieldbearers.value,
         numberCrossbowmenR = input_Rainhards_crossbowmen.value;
     view_Rainhards_army(number_shieldbearers_R, number_crossbowmen_R);  
 }
 
-button_fill_in_Galahads_army.onclick = function(e){
+button_fill_in_Galahads_army.onclick = function(){
     var numberShieldbearersG = input_Galahads_shieldbearers.value,
         numberCrossbowmenG = input_Galahads_crossbowmen.value;
     view_Galahads_army(numberShieldbearersG, numberCrossbowmenG);  
 }
 
 
-button_start_the_battle.onclick = function(e){
-    console.log(5)
+button_start_the_battle.onclick = function(){
+    toggle_view();
     change_screen_content();
 }
 
-button_start_the_battle.onclick = change_screen_content();
 
-button_start_the_battle.onclick = console.log(5);
+//  button_start_the_battle.onclick = change_screen_content;
+
 
 
