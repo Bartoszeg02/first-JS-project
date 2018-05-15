@@ -3,24 +3,25 @@
 <head>
     <title>Bitwa</title>
     <style>
+        /* body{width:100%; background-image: url("grafika/tłum.jpg");} */
         body{width:100%; background-color: darkgrey;}
         .x50{width:50%; float: left; box-sizing: border-box; padding: 5%; text-align: center}
         .rozpocznij_bitwe {display: flex; justify-content: center; width: 100%}
         h1{margin: 0; padding: 0; position: relative; display: block; font-size: 10mm}
-        .visible{display: block};
-        .hidden{display: none};
+        .visible{display: block;}
+        .hidden{display: none;}
     </style>
 </head>
 <body>
     <center><img src="grafika/Przygotowanie.jpg" id="main_picture_1"/></center>
-    <center><h1>Przygotuj armie</h1></center>
+    <center><h1 id='title'>Przygotuj armie</h1></center>
 
     <div class="x50">
-        <img src="grafika/Sztandar1.jpg" id="xxx"/>
+        <img src="grafika/Sztandar1.png" id="banner_Rainhard"/>
         <h3>armia Sir Rainharda</h3>
 
         <div class="fill_in_R_army">
-            <label>liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_R"></label>
+            <label style="padding-right: 23px;">liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_R"></label>
             <br>
             <br>
             <label>liczba kuszników: <input type="text" name="i_number_of_crossbowmen_R"></label>
@@ -39,11 +40,11 @@
     </div>
     
     <div class="x50">
-        <img src="grafika/Sztandar2.jpg"/>
+        <img src="grafika/Sztandar2.png" id="banner_Galahad"/>
         <h3>armia Sir Galahada</h3>
     
         <div class="fill_in_G_army">
-            <label>liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_G"></label>
+            <label style="padding-right: 23px;">liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_G"></label>
                 <br>
                 <br>
             <label>liczba kuszników: <input type="text" name="i_number_of_crossbowmen_G"></label>
@@ -62,7 +63,7 @@
     </div>
     
     <div class="Start_the_battle">
-        <input type="image" src="grafika/RozpocznijBitwe.jpg" id="button_start_the_battle"/>
+        <input type="image" src="grafika/bitwa1.png" id="button_start_the_battle"/>
         <center><h2>Rozpocznij bitwę!</h2></center>
     </div>
 
