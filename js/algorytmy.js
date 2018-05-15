@@ -52,6 +52,7 @@ function view_Galahads_army(shields, crossbows){
 
 function change_screen_content(){
     main_picture.src = 'grafika/Armia1.jpg';  
+    button_start_the_battle.src = 'grafika/Bitwa2.png'
     title.innerHTML = "Bitwa!";
 }
 
@@ -61,8 +62,17 @@ function toggle_view(){
 }
 
 function check_army_values(){
-    if(number_of_shieldbearers_G == ""){
+    if(number_of_shieldbearers_G.innerHTML === ""){
         number_of_shieldbearers_G.innerHTML = 0; 
+    }
+    if(number_of_crossbowmen_G.innerHTML === ""){
+        number_of_crossbowmen_G.innerHTML = 0; 
+    }
+    if(number_of_shieldbearers_R.innerHTML === ""){
+        number_of_shieldbearers_R.innerHTML = 0; 
+    }
+    if(number_of_crossbowmen_R.innerHTML === ""){
+        number_of_crossbowmen_R.innerHTML = 0; 
     }
     //var e = new Error('Could not parse input');
     //throw e;
@@ -82,15 +92,8 @@ button_fill_in_Galahads_army.onclick = function(){
     view_Galahads_army(numberShieldbearersG, numberCrossbowmenG);  
 }
 
-
 button_start_the_battle.onclick = function(){
     toggle_view();
     change_screen_content();
     check_army_values();
 }
-
-
-//  button_start_the_battle.onclick = change_screen_content;
-
-//konwersja z .value do liczby
-
