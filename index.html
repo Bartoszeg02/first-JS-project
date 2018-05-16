@@ -3,70 +3,104 @@
 <head>
     <title>Bitwa</title>
     <style>
-        body{width:100%; background-image: url("grafika/Paris.jpg"); Background-repeat: no-repeat; Background-size: cover}
-        body{width:100%; background-color: black;}
-        /* body{width:100%; background-color: darkgrey;} */
+        /* body{width:100%; background-image: url("grafika/tłum.jpg"); Background-repeat: no-repeat; Background-size: cover}
+        body{width:100%; background-color: black;} */
+        body{width:100%; background-color: darkgrey; margin: 0;}
         .x50{width:50%; float: left; box-sizing: border-box; padding: 5%; text-align: center}
         .rozpocznij_bitwe {display: flex; justify-content: center; width: 100%}
-        h1{margin: 0; padding: 0; position: relative; display: block; font-size: 10mm}
+        h1{margin: 0; padding: 0; position: relative; display: block; font-size: 10px}
         .visible{display: block;}
         .hidden{display: none;}
+		
+		.army_chooser{width: 100%; display: block;}
+		.army_chooser > *{width: 100%; display: block;}
+		.army_chooser button{width: 50%; height: 20px; position: relative; left: 25%;}
+
+		.unit{margin:25px;}
+		.strength{font-size: 25px; font-weight: bold; min-height: 30px;}
+
+		.Start_the_battle{width: 100%; float: left; text-align: center;}
+
+		#battle_report{
+			display: none;
+			position: fixed;
+			width: 50%;
+			height: 50%;
+			left: 25%;
+			top: 25%;
+
+			background-color: cadetblue;
+			box-shadow: 0 0 10px #000;
+
+			/* opacity:0.5; */
+		}
+		#battle_report[visible]{
+			display: block;
+		}
+		
+		/* .army_chooser{
+			display: block;
+		}
+		.army_chooser[visible]{
+			display: none;
+		} */
+
+		.close_battle_report{position: absolute; right: 0; /*margin: 24px;*/}
+
     </style>
 </head>
 <body>
     <center><img src="grafika/Przygotowanie.jpg" id="main_picture_1"/></center>
-    <center><h1 id='title'>Przygotuj armie</h1></center>
+    <center><h2 id='title'>Przygotuj armie</h2></center>
 
     <div class="x50">
         <img src="grafika/Sztandar1.png" id="banner_Rainhard"/>
         <h3>armia Sir Rainharda</h3>
 
-        <div class="fill_in_R_army">
-            <label style="padding-right: 23px;">liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_R"></label>
-            <br>
-            <br>
+        <div class="fill_in_R_army army_chooser">
+            <label style="padding-right: 23px;">liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_R"></label>            
             <label>liczba kuszników: <input type="text" name="i_number_of_crossbowmen_R"></label>
-            <br>
-            <br>
             <button id="b_fill_in_Rainhards_army">Wprowadź wojska Rainharda</button>
         </div>
-        <br>
-        <div id="Rainhards_army">
-            <img src="grafika/RolandT.jpg"/>  
-            <div id="number_of_shieldbearers_R"></div>
-            <br>
-            <img src="grafika/RolandK.jpg"/>  
-            <div id="number_of_crossbowmen_R"></div>  
+        <div id="Rainhards_army" class="army">
+			<div class="unit">
+         	   <img src="grafika/RolandT.jpg"/>  
+				<div class="strength" id="number_of_shieldbearers_R"></div>
+			</div>
+			<div class="unit">
+           		<img src="grafika/RolandK.jpg"/>  
+				<div class="strength" id="number_of_crossbowmen_R"></div>  
+			</div>
         </div>
     </div>
-    
     <div class="x50">
         <img src="grafika/Sztandar2.png" id="banner_Galahad"/>
         <h3>armia Sir Galahada</h3>
     
-        <div class="fill_in_G_army">
+        <div class="fill_in_G_army army_chooser">
             <label style="padding-right: 23px;">liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_G"></label>
-                <br>
-                <br>
             <label>liczba kuszników: <input type="text" name="i_number_of_crossbowmen_G"></label>
-                <br>
-                <br>
             <button id="b_fill_in_Galahads_army">Wprowadź wojska Galahada</button>
         </div>
-            <br>
-        <div id="Galahads_army">
-            <img src="grafika/GalahadT.jpg"/>  
-            <div id="number_of_shieldbearers_G"></div>
-            <br>
-            <img src="grafika/GalahadK.jpg"/>  
-            <div id="number_of_crossbowmen_G"></div>  
-        </div>
-    </div>
-    
+        <div id="Galahads_army" class="army">
+			<div class="unit">
+				<img src="grafika/GalahadT.jpg"/>  
+				<div class="strength" id="number_of_shieldbearers_G"></div>
+			</div>
+			<div class="unit">
+				<img src="grafika/GalahadK.jpg"/>  
+				<div class="strength" id="number_of_crossbowmen_G"></div> 
+			</div>
+		</div>
+	</div>
     <div class="Start_the_battle">
         <input type="image" src="grafika/bitwa1.png" id="button_start_the_battle"/>
-        <center><h2>Rozpocznij bitwę!</h2></center>
-    </div>
+        <center><h2 id="start_battle_inscription">Rozpocznij bitwę!</h2></center>
+	</div>
+	
+	<div id="battle_report">
+		<button class="close_battle_report close">x</button>
+	</div>
 
     <script src="js/algorytmy.js"></script>
 </body>
