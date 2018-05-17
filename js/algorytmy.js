@@ -145,3 +145,46 @@ function close_battle_report (){
 }
 
 battle_report_close_button.onclick = close_battle_report;
+
+
+
+// var hit = 0;
+// function shooting(shooters){
+//     hit = 0;
+// 	if(shooters <= 0){
+// 		console.log("brak strzelców")}
+// 	else{
+// 		for (var i = 0; i < shooters; ++i){
+// 			var hitRoll = 0;
+// 			hitRoll = Math.floor(Math.random()*100+1);
+// 			console.log(hitRoll);
+// 				if(hitRoll <= 40){
+// 					hit = hit + 1;
+// 				}
+// 		}	
+// 		console.log("Liczba trafień to: " + hit);
+// 	}
+// }
+
+// function hits_split(hit, shieldbearers, crossbowmen){
+// 	var chanceToHitX = 0;
+// 	    splitRoll = 0;
+// 		hitX = 0;
+// 		hitY = 0;
+// 	chanceToHitX = shieldbearers / (shieldbearers + crossbowmen) * 100;
+// 	console.log("szansa na trafienie X: " + chanceToHitX + "%");
+// 	for(var i = 0; i < hit; ++i){
+// 		splitRoll = 0;
+// 		splitRoll = Math.floor(Math.random()*100+1);
+// 		console.log("rzut na przydzielenie trafienia wynosi: " + splitRoll)
+// 		if (splitRoll <= chanceToHitX){
+// 		hitX = hitX + 1;
+// 		console.log("trafienie w X" + hitX);
+// 		}
+// 		else
+// 		hitY = hitY + 1;
+// 		console.log("trafienie w Y" + hitY);
+// 	}
+// 	console.log("trafienia w X: " + hitX);
+// 	console.log("trafienia w Y: " + hitY);
+// }
