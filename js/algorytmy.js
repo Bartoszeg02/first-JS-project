@@ -188,3 +188,17 @@ battle_report_close_button.onclick = close_battle_report;
 // 	console.log("trafienia w X: " + hitX);
 // 	console.log("trafienia w Y: " + hitY);
 // }
+
+// function armour_check (hits, unitDefence){
+// 	var armourPenetration = 0,
+// 		casualties = 0;
+// 	for(var i = 0; i < hits; ++i){
+// 		armorPenetration = 0;
+// 		armourPenetration = Math.floor(Math.random() * 100 + 1);
+// 		console.log("wynik testu przebicia pancerza: " + armourPenetration);
+// 			if(armourPenetration > unitDefence){
+// 				casualties = casualties + 1;
+// 			} else { casualties = casualties; }
+// 	}
+// 	console.log("liczba zabitych: " + casualties);
+// }
