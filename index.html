@@ -21,23 +21,30 @@
 
 		.Start_the_battle{width: 100%; float: left; text-align: center;}
 
+
+		/*Raport bitewny*/ 
 		#battle_report{
 			display: none;
 			position: fixed;
 			width: 50%;
-			height: 50%;
+			height: 80%;
 			left: 25%;
-			top: 25%;
+			top: 10%;
 
 			background-color: cadetblue;
 			box-shadow: 0 0 10px #000;
 
 			/* opacity:0.5; */
 		}
+
 		#battle_report[visible]{
-			display: block;
+		display: block;
 		}
-		
+
+		#round{text-align: center; font-weight: bold; font-size: 30px}
+		#phase{text-align: center; font-weight: bold; font-size: 22px}
+		#phase_1_picture{width: 100%;}
+
 		/* .army_chooser{
 			display: block;
 		}
@@ -45,7 +52,21 @@
 			display: none;
 		} */
 
-		.close_battle_report{position: absolute; right: 0; /*margin: 24px;*/}
+		.close_battle_report{position: absolute; right: 0; margin: 10px;}
+
+.lewy {
+width: 100px;
+height: 100px;
+float: left;
+margin: 0px;
+}
+
+.prawy {
+width: 100px;
+height: 100px;
+float: right;
+margin: 0px;
+}
 
     </style>
 </head>
@@ -99,34 +120,28 @@
 	</div>
 	
 	<div id="battle_report">
-		<button class="close_battle_report close">x</button>
+		<!-- <button class="close_battle_report close">x</button> -->
+		<div class="title">
+			<div id="round">Runda I</div>
+			<div id="phase">Faza ostrzału</div>
+			<img src="grafika/Faza_ostrzału.jpg" id="phase_1_picture"/>
+		</div>
+		<div class="battle_reports lewy">
+			<div class="Rainhards_reports">
+				<img src="grafika/Sztandar1.png" id="Rainhards_banner"/>
+				<div id="Rainhards_statement">sdafasdfasdfsd</div>
+			</div>
+			<div class="Galahads_reports prawy">
+				<img src="grafika/Sztandar2.png" id="Galahads_banner"/>
+				<div id="Galahads_statement">dfgsdfgsdfgdfs</div>
+			</div>
+		</div>
+		<div class="next_phase">
+			<img src="grafika/NextPhaseButton.jpg" id="next_phase_button"/>
+			<div id="next_phase_statement"></div>
+		</div>
 	</div>
 
-	
-// dopisane do okna raportu 	
-	<div class="title">
-	<div id="round"></div>
-	<div id="phase"></div>
-	<img src="grafika/Faza_ostrzału.jpg" id="phase_picture_1"/>
-</div>
- <div class="battle_reports">
-	<div class="Rainhards_reports">
-		<img src="grafika/bannerR.png" id="Rainhards_banner"/>
-		<div id="Rainhards_statement"></div>
-	</div>
-	<div class="Galahads_reports">
-		<img src="grafika/bannerG.png" id="Galahads_banner"/>
-		<div id="Galahads_statement"></div>
-	</div>
- </div>
- <div class="next_phase">
-	<img src="grafika/NextPhaseButton.jpg" id="next_phase_button"/>
-	<div id="next_phase_statement"></div>
- </div>
-	
-	
-	
-	
     <script src="js/algorytmy.js"></script>
 </body>
 </html>
