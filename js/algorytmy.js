@@ -27,6 +27,11 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 	battle_report_window = document.getElementById("battle_report"), 
 	battle_report_close_button = document.querySelector(".close_battle_report"),
 
+	Rainhards_statement = document.getElementById("Rainhards_statement"),
+	next_phase_button = document.getElementById("next_phase_button"),
+
+
+
 	Rainhards_Army = {
 		shieldbearers : {
 			attack : 30,
@@ -35,7 +40,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 			html_n : number_of_shieldbearers_R
 		},
 		crossbowmen : {
-			attack : 50,
+			attack : 45,
 			defense : 30,
 			n : 0,
 			html_n : number_of_crossbowmen_R
@@ -50,12 +55,16 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 			html_n : number_of_shieldbearers_G
 		},
 		crossbowmen : {
-			attack : 50,
+			attack : 45,
 			defense : 30,
 			n : 0,
 			html_n : number_of_crossbowmen_G
 		},
 	};
+
+	//liczba trafień do ekranu raport bitwy
+	hits = 0; 
+
 
 function set_army (shields, crossbows, currentArmy){
 	function check_value (value){
@@ -134,7 +143,6 @@ button_start_the_battle.onclick = function(){
 }
 
 
-
 //--------------- battle report
 function view_battle_report (){
 	battle_report_window.setAttribute("visible","");
@@ -144,63 +152,74 @@ function close_battle_report (){
 	battle_report_window.removeAttribute("visible");
 }
 
+function hit_rolls(unit, attack){
+	hits = 0;
+	hitRoll = 0; 
+	//dodać warunek co się dzieje jeżeli jest 0 atakujących - komunikat?
+	for(var i = 0; i < unit; ++i){
+		hitRoll = Math.floor(Math.random()*100 + 1);
+		console.log(hitRoll);
+		if(hitRoll <= attack){
+			hits = hits + 1;
+		}
+	}
+	console.log("liczba obrażeń " + hits);
+	Rainhards_statement.innerHTML = "liczba uzyskanych trafień to: " + hits;
+	return hits;
+}
+
+//funkcja zakłada że zawsze są tylko 2 typy przeciwników - rozszerzyć o uogólnienie funkcji
+function hits_allocation(hits, enemiesShieldbearers, enemiesCrossbowmen){
+	var	chanceToHitShieldbearers = 0,
+		hitsToShieldbearers = 0,
+		hitsToCrossbowmen = 0,
+		allocationRoll = 0;
+		console.log("obrażenia do przydzielenia: " + hits);
+		chanceToHitShieldbearers = enemiesShieldbearers / (enemiesShieldbearers + enemiesCrossbowmen) * 100;
+		console.log("szansa na trafienie tarczownika: " + chanceToHitShieldbearers);
+		for(var i = 0; i < hits; ++i){
+			allocationRoll = 0;
+			allocationRoll = Math.random() * 100 + 1;
+			if(allocationRoll <= chanceToHitShieldbearers){
+				hitsToShieldbearers = hitsToShieldbearers + 1;
+				console.log("rzut: " + allocationRoll + " trafienie w tarczownika");
+			}else{
+				hitsToCrossbowmen = hitsToCrossbowmen + 1;
+				console.log("rzut: " + allocationRoll + " trafienie w kusznika");
+			}
+		}
+		console.log("trafiono " + hitsToShieldbearers + " tarczowników oraz " + hitsToCrossbowmen + " kuszników");
+		return [hitsToShieldbearers, hitsToCrossbowmen];
+	}
+
+	//Dodać pomniejszanie liczby wojsk
+	function armour_check(allocatedHits, unitsArmour){
+		var armourPenetration = 0;
+			casaulties = 0;
+			for(var i = 0; i < allocatedHits; ++i){
+				armourPenetration = Math.floor(Math.random()*100 + 1);
+				console.log("rzut na przebicie pancerza: " + armourPenetration);
+				if(armourPenetration > unitsArmour){
+					casaulties = casaulties + 1;}
+			}
+			console.log("liczba zabitych to: " + casaulties);
+			return casaulties;
+		}
+
+//Dodać raportowanie
+//Dodać ataki Galahada
+//Dodać etap walki wręcz
+//Dodać etap zakończenia rundy
+
+
+//------ Events
+next_phase_button.onclick = function(){
+	hit_rolls(Rainhards_Army.crossbowmen.n, Rainhards_Army.crossbowmen.attack);
+	hitArray = hits_allocation(hits, Galahads_Army.shieldbearers.n, Galahads_Army.crossbowmen.n);
+	armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
+	armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
+}
+
 battle_report_close_button.onclick = close_battle_report;
 
 
-
-/// Nowe !!!
-
-var hit = 0;
-function shooting(shooters){
-     hit = 0;
-	if(shooters <= 0){
-	console.log("brak strzelców")}
- 	else{
- 		for (var i = 0; i < shooters; ++i){
-			var hitRoll = 0;
- 			hitRoll = Math.floor(Math.random()*100+1);
-			console.log(hitRoll);
- 				if(hitRoll <= 40){
- 					hit = hit + 1;
-				}
-		}	
- 		console.log("Liczba trafień to: " + hit);
-	}
- }
-
-function hits_split(hit, shieldbearers, crossbowmen){
- 	var chanceToHitX = 0;
- 	    splitRoll = 0;
- 		hitX = 0;
- 		hitY = 0;
- 	chanceToHitX = shieldbearers / (shieldbearers + crossbowmen) * 100;
- 	console.log("szansa na trafienie X: " + chanceToHitX + "%");
- 	for(var i = 0; i < hit; ++i){
- 		splitRoll = 0;
- 		splitRoll = Math.floor(Math.random()*100+1);
- 		console.log("rzut na przydzielenie trafienia wynosi: " + splitRoll)
- 		if (splitRoll <= chanceToHitX){
- 		hitX = hitX + 1;
- 		console.log("trafienie w X" + hitX);
-		}
-		else
- 		hitY = hitY + 1;
- 		console.log("trafienie w Y" + hitY);
- 	}
- 	console.log("trafienia w X: " + hitX);
-	console.log("trafienia w Y: " + hitY);
-}
-
-function armour_check (hits, unitDefence){
-	var armourPenetration = 0,
-		casualties = 0;
- 	for(var i = 0; i < hits; ++i){
-		armorPenetration = 0;
- 		armourPenetration = Math.floor(Math.random() * 100 + 1);
-		console.log("wynik testu przebicia pancerza: " + armourPenetration);
-			if(armourPenetration > unitDefence){
-				casualties = casualties + 1;
-			} else { casualties = casualties; }
-	}
-	console.log("liczba zabitych: " + casualties);
-}
