@@ -28,8 +28,8 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 	battle_report_close_button = document.querySelector(".close_battle_report"),
 
 	Rainhards_statement = document.getElementById("Rainhards_statement"),
+	Galahads_statement = document.getElementById("Galahads_statement"),
 	next_phase_button = document.getElementById("next_phase_button"),
-
 
 
 	Rainhards_Army = {
@@ -96,6 +96,7 @@ function change_screen_content(){
 	inscription_under_start_the_battle.innerHTML = "Do ataku!";
 }
 
+//uzupełnić znikanie pól z pierwszego formularza
 function toggle_view(){
     picture_banner_Rainhard.setAttribute("class", "hidden");
 	picture_banner_Galahad.setAttribute("class", "hidden");
@@ -152,6 +153,18 @@ function close_battle_report (){
 	battle_report_window.removeAttribute("visible");
 }
 
+//NOWE 
+function Battle_Report(army, hits, hitArray, casaultiesArray){
+var statement = "";
+if(army == Rainhard){
+	statement = Rainhards_statement;
+}else if(army == Galahad){
+	statement = Galahads_statement;
+}
+	statement.innerHTML = "Uzyskano " + hits + " trafień" + "/n" + "Z czego " + hitArray[0] + " zostało ulokowanych w tarczowników a " + hitArray[1] + " w kuszników" 
+	+ "/n" + "Poległo " + casaultiesArray[0] + " tarczowników oraz " + casaultiesArray[1] + "kuszników";
+}
+
 function hit_rolls(unit, attack){
 	hits = 0;
 	hitRoll = 0; 
@@ -186,26 +199,27 @@ function hits_allocation(hits, enemiesShieldbearers, enemiesCrossbowmen){
 			}else{
 				hitsToCrossbowmen = hitsToCrossbowmen + 1;
 				console.log("rzut: " + allocationRoll + " trafienie w kusznika");
-			}
 		}
-		console.log("trafiono " + hitsToShieldbearers + " tarczowników oraz " + hitsToCrossbowmen + " kuszników");
-		return [hitsToShieldbearers, hitsToCrossbowmen];
 	}
+	console.log("trafiono " + hitsToShieldbearers + " tarczowników oraz " + hitsToCrossbowmen + " kuszników");
+	return [hitsToShieldbearers, hitsToCrossbowmen];
+}
 
 	//Dodać pomniejszanie liczby wojsk
-	function armour_check(allocatedHits, unitsArmour){
-		var armourPenetration = 0;
-			casaulties = 0;
-			for(var i = 0; i < allocatedHits; ++i){
-				armourPenetration = Math.floor(Math.random()*100 + 1);
-				console.log("rzut na przebicie pancerza: " + armourPenetration);
-				if(armourPenetration > unitsArmour){
-					casaulties = casaulties + 1;}
-			}
-			console.log("liczba zabitych to: " + casaulties);
-			return casaulties;
-		}
+function armour_check(allocatedHits, unitsArmour){
+	var armourPenetration = 0;
+		casaulties = 0;
+	for(var i = 0; i < allocatedHits; ++i){
+		armourPenetration = Math.floor(Math.random()*100 + 1);
+		console.log("rzut na przebicie pancerza: " + armourPenetration);
+	if(armourPenetration > unitsArmour){
+		casaulties = casaulties + 1;}
+	}
+	console.log("liczba zabitych to: " + casaulties);
+	return casaulties;
+}
 
+//1 ekran neutralny
 //Dodać raportowanie
 //Dodać ataki Galahada
 //Dodać etap walki wręcz
@@ -213,13 +227,14 @@ function hits_allocation(hits, enemiesShieldbearers, enemiesCrossbowmen){
 
 
 //------ Events
+
+//sprawdzić czy dla casaultiesArray muszę wcześniej zadeklarować że to tablica żeby przypisywał wartości na kolejne pozycje czy nie?
 next_phase_button.onclick = function(){
 	hit_rolls(Rainhards_Army.crossbowmen.n, Rainhards_Army.crossbowmen.attack);
 	hitArray = hits_allocation(hits, Galahads_Army.shieldbearers.n, Galahads_Army.crossbowmen.n);
-	armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
-	armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
+	casaultiesArray[0] = armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
+	casaultiesArray[1] = armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
+	Battle_Report(Rainhard, hits, hitArray, casaultiesArray);
 }
 
 battle_report_close_button.onclick = close_battle_report;
-
-
