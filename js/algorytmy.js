@@ -243,3 +243,4 @@ var casaultiesArray = [];
 battle_report_close_button.onclick = close_battle_report;
 
 
+
