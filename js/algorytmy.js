@@ -27,8 +27,11 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 	battle_report_window = document.getElementById("battle_report"), 
 	battle_report_close_button = document.querySelector(".close_battle_report"),
 
-	Rainhards_statement = document.getElementById("Rainhards_statement"),
-	Galahads_statement = document.getElementById("Galahads_statement"),
+	statements = {
+		Rainhard : document.getElementById("Rainhards_statement"),
+		Galahad : document.getElementById("Galahads_statement")
+	},
+
 	next_phase_button = document.getElementById("next_phase_button"),
 
 
@@ -46,7 +49,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 			n : 0,
 			html_n : number_of_crossbowmen_R
 		},
-	};
+	},
  
 	Galahads_Army = {
 		shieldbearers : {
@@ -61,7 +64,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 			n : 0,
 			html_n : number_of_crossbowmen_G
 		},
-	};
+	},
 
 	//liczba trafień do ekranu raport bitwy
 	hits = 0; 
@@ -167,7 +170,6 @@ function hit_rolls(unit, attack){
 		}
 	}
 	console.log("liczba obrażeń " + hits);
-	Rainhards_statement.innerHTML = "liczba uzyskanych trafień to: " + hits;
 	return hits;
 }
 
@@ -209,16 +211,9 @@ function armour_check(allocatedHits, unitsArmour){
 	return casaulties;
 }
 
-
 function Battle_Report(army, hits, hitArray, casaultiesArray){
-	var statement = "";
-	if(army === "Rainhard"){
-		statement = Rainhards_statement;
-	}else if(army === "Galahad"){
-		statement = Galahads_statement;
-	}
-	statement.innerHTML = "Uzyskano " + hits + " trafień" + "\n" + "Z czego " + hitArray[0] + " zostało ulokowanych w tarczowników a " + hitArray[1] + " w kuszników" 
-	+ "\n" + "Poległo " + casaultiesArray[0] + " tarczowników oraz " + casaultiesArray[1] + " kuszników";
+	var statement = statements[army];
+	statement.innerHTML = "Uzyskano " + hits + " trafień" + "\n" + "Z czego " + hitArray[0] + " zostało ulokowanych w tarczowników a " + hitArray[1] + " w kuszników" + "\n" + "Poległo " + casaultiesArray[0] + " tarczowników oraz " + casaultiesArray[1] + " kuszników";
 }
 
 //ekran neutralny
@@ -239,10 +234,10 @@ var casaultiesArray = [];
 	Battle_Report("Rainhard", hits, hitArray, casaultiesArray);
 	//Ostrzał kuszników Galahada
 	hit_rolls(Galahads_Army.crossbowmen.n, Galahads_Army.crossbowmen.attack);
-	// hitArray = hits_allocation(hits, Rainhards_Army.shieldbearers.n, Rainhards_Army.crossbowmen.n);
-	// casaultiesArray[0] = armour_check(hitArray[0], Rainhards_Army.shieldbearers.defense);
-	// casaultiesArray[1] = armour_check(hitArray[1], Rainhards_Army.crossbowmen.defense);
-	//Battle_Report("Galahad", hits, hitArray, casaultiesArray);
+	hitArray = hits_allocation(hits, Rainhards_Army.shieldbearers.n, Rainhards_Army.crossbowmen.n);
+	casaultiesArray[0] = armour_check(hitArray[0], Rainhards_Army.shieldbearers.defense);
+	casaultiesArray[1] = armour_check(hitArray[1], Rainhards_Army.crossbowmen.defense);
+	Battle_Report("Galahad", hits, hitArray, casaultiesArray);
 }
 
 battle_report_close_button.onclick = close_battle_report;
