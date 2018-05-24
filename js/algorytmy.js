@@ -4,6 +4,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
     number_of_shieldbearers_R = document.getElementById("number_of_shieldbearers_R"),
     number_of_crossbowmen_R = document.getElementById("number_of_crossbowmen_R"),
 
+	//do wywalenia
     button_fill_in_Rainhards_army = document.getElementById("b_fill_in_Rainhards_army"),
 
     input_Galahads_shieldbearers = document.getElementById("i_number_of_shieldbearers_G"),
@@ -12,8 +13,17 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
     number_of_shieldbearers_G = document.getElementById("number_of_shieldbearers_G"),
     number_of_crossbowmen_G = document.getElementById("number_of_crossbowmen_G"),
 
+	//do wywalenia
     button_fill_in_Galahads_army = document.getElementById("b_fill_in_Galahads_army"),
 
+	//nowe
+	button_fill_in_army = {
+		Rainhard : document.getElementById("b_fill_in_Rainhards_army"),
+		Galahad : document.getElementById("b_fill_in_Galahads_army")
+	},
+		
+		
+	
     button_start_the_battle = document.getElementById("button_start_the_battle"),
 	inscription_under_start_the_battle = document.querySelector("#start_battle_inscription"),
 
@@ -126,6 +136,12 @@ function check_army_values(){
 }
 
 //--------------- Events
+//nowe
+button_fill_in_army.army.onclick = function(){
+	
+	
+	
+
 button_fill_in_Rainhards_army.onclick = function(){
     var numberShieldbearersR = input_Rainhards_shieldbearers.value,
 		numberCrossbowmenR = input_Rainhards_crossbowmen.value;
@@ -173,7 +189,8 @@ function hit_rolls(unit, attack){
 	return hits;
 }
 
-//funkcja zakłada że zawsze są tylko 2 typy przeciwników - rozszerzyć o uogólnienie funkcji
+///funkcja zakłada że zawsze są tylko 2 typy przeciwników - rozszerzyć o uogólnienie funkcji
+/// dodać procedurę która zmniejsza szanse tarczownikom na trafienie kuszników
 function hits_allocation(hits, enemiesShieldbearers, enemiesCrossbowmen){
 	var	chanceToHitShieldbearers = 0,
 		hitsToShieldbearers = 0,
@@ -197,7 +214,7 @@ function hits_allocation(hits, enemiesShieldbearers, enemiesCrossbowmen){
 	return [hitsToShieldbearers, hitsToCrossbowmen];
 }
 
-//Dodać pomniejszanie liczby wojsk
+///Dodać pomniejszanie liczby wojsk
 function armour_check(allocatedHits, unitsArmour){
 	var armourPenetration = 0;
 		casaulties = 0;
@@ -211,6 +228,7 @@ function armour_check(allocatedHits, unitsArmour){
 	return casaulties;
 }
 
+///dodać info na początku komunikatu kto wywołał efekt
 function Battle_Report(army, hits, hitArray, casaultiesArray){
 	var statement = statements[army];
 	statement.innerHTML = "Uzyskano " + hits + " trafień" + "\n" + "Z czego " + hitArray[0] + " zostało ulokowanych w tarczowników a " + hitArray[1] + " w kuszników" + "\n" + "Poległo " + casaultiesArray[0] + " tarczowników oraz " + casaultiesArray[1] + " kuszników";
@@ -224,23 +242,50 @@ function Battle_Report(army, hits, hitArray, casaultiesArray){
 
 
 //------ Events
+var phase = 1;
+
 next_phase_button.onclick = function(){
-var casaultiesArray = [];
-	//Ostrzał kuszników Rainharda
-	hit_rolls(Rainhards_Army.crossbowmen.n, Rainhards_Army.crossbowmen.attack);
-	hitArray = hits_allocation(hits, Galahads_Army.shieldbearers.n, Galahads_Army.crossbowmen.n);
-	casaultiesArray[0] = armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
-	casaultiesArray[1] = armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
-	Battle_Report("Rainhard", hits, hitArray, casaultiesArray);
-	//Ostrzał kuszników Galahada
-	hit_rolls(Galahads_Army.crossbowmen.n, Galahads_Army.crossbowmen.attack);
-	hitArray = hits_allocation(hits, Rainhards_Army.shieldbearers.n, Rainhards_Army.crossbowmen.n);
-	casaultiesArray[0] = armour_check(hitArray[0], Rainhards_Army.shieldbearers.defense);
-	casaultiesArray[1] = armour_check(hitArray[1], Rainhards_Army.crossbowmen.defense);
-	Battle_Report("Galahad", hits, hitArray, casaultiesArray);
+	switch(phase){
+		case 1:
+			var casaultiesArray = [];
+			//Ostrzał kuszników Rainharda
+			hit_rolls(Rainhards_Army.crossbowmen.n, Rainhards_Army.crossbowmen.attack);
+			hitArray = hits_allocation(hits, Galahads_Army.shieldbearers.n, Galahads_Army.crossbowmen.n);
+			casaultiesArray[0] = armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
+			casaultiesArray[1] = armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
+			Battle_Report("Rainhard", hits, hitArray, casaultiesArray);
+			//Ostrzał kuszników Galahada
+			hit_rolls(Galahads_Army.crossbowmen.n, Galahads_Army.crossbowmen.attack);
+			hitArray = hits_allocation(hits, Rainhards_Army.shieldbearers.n, Rainhards_Army.crossbowmen.n);
+			casaultiesArray[0] = armour_check(hitArray[0], Rainhards_Army.shieldbearers.defense);
+			casaultiesArray[1] = armour_check(hitArray[1], Rainhards_Army.crossbowmen.defense);
+			Battle_Report("Galahad", hits, hitArray, casaultiesArray);
+			///dodać zmianę napisu pod przyciskiem oraz zmianę ilustracji,
+			phase = phase + 1;
+			break;
+		case 2: 
+			var casaultiesArray = [];
+			//Natarcie tarczowników Rainharda
+			hit_rolls(Rainhards_Army.shieldbearers.n, Rainhards_Army.shieldbearers.attack);
+			hitArray = hits_allocation(hits, Galahads_Army.shieldbearers.n, Galahads_Army.crossbowmen.n);
+			casaultiesArray[0] = armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
+			casaultiesArray[1] = armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
+			Battle_Report("Rainhard", hits, hitArray, casaultiesArray);			
+			//Natarcie tarczowników Galahada
+			hit_rolls(Galahads_Army.shieldbearers.n, Galahads_Army.shieldbearers.attack);
+			hitArray = hits_allocation(hits, Rainhards_Army.shieldbearers.n, Rainhards_Army.crossbowmen.n);
+			casaultiesArray[0] = armour_check(hitArray[0], Rainhards_Army.shieldbearers.defense);
+			casaultiesArray[1] = armour_check(hitArray[1], Rainhards_Army.crossbowmen.defense);
+			Battle_Report("Galahad", hits, hitArray, casaultiesArray);
+			///dodać zmianę napisu pod przyciskiem oraz zmianę ilustracji,
+			phase = phase + 1;
+			break;		   
+		case 3: 
+			///kliknięcie w przycisk spowoduje wyświetlenie zbiorczego raportu oraz zamieni przycisk na przycisk zamknięcia. 
+			break; 
+		default: 
+			///jakiś komunikat
+	}
 }
 
 battle_report_close_button.onclick = close_battle_report;
-
-
-
