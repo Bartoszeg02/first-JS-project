@@ -137,7 +137,7 @@ function check_army_values(){
 
 //--------------- Events
 //nowe
-button_fill_in_army.army.onclick = function(){
+//button_fill_in_army.army.onclick = function(){
 	
 	
 	
@@ -247,6 +247,7 @@ var phase = 1;
 next_phase_button.onclick = function(){
 	switch(phase){
 		case 1:
+			console.log("***Ostrzał***")
 			var casaultiesArray = [];
 			//Ostrzał kuszników Rainharda
 			hit_rolls(Rainhards_Army.crossbowmen.n, Rainhards_Army.crossbowmen.attack);
@@ -264,6 +265,7 @@ next_phase_button.onclick = function(){
 			phase = phase + 1;
 			break;
 		case 2: 
+			console.log("***CC***")
 			var casaultiesArray = [];
 			//Natarcie tarczowników Rainharda
 			hit_rolls(Rainhards_Army.shieldbearers.n, Rainhards_Army.shieldbearers.attack);
@@ -282,6 +284,9 @@ next_phase_button.onclick = function(){
 			break;		   
 		case 3: 
 			///kliknięcie w przycisk spowoduje wyświetlenie zbiorczego raportu oraz zamieni przycisk na przycisk zamknięcia. 
+			console.log("***Koniec***")
+			close_battle_report;
+			phase = 1;	
 			break; 
 		default: 
 			///jakiś komunikat
