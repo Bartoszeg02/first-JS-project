@@ -22,8 +22,6 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 		Galahad : document.getElementById("b_fill_in_Galahads_army")
 	},
 		
-		
-	
     button_start_the_battle = document.getElementById("button_start_the_battle"),
 	inscription_under_start_the_battle = document.querySelector("#start_battle_inscription"),
 
@@ -35,7 +33,14 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 
 	//---------- battle report
 	battle_report_window = document.getElementById("battle_report"), 
-	battle_report_close_button = document.querySelector(".close_battle_report"),
+	//battle_report_close_button = document.querySelector(".close_battle_report"),
+
+	battle_report_round_number = document.getElementById("round"),
+	battle_report_phase_name = document.getElementById("phase"),
+	battle_report_phase_picture = document.getElementById("phase_1_picture"),
+
+	casaulties_meter_Rainhard = document.getElementById("number_of_Rainhards_casualties"),
+	casaulties_meter_Galahad = document.getElementById("number_of_Galahads_casualties"),
 
 	statements = {
 		Rainhard : document.getElementById("Rainhards_statement"),
@@ -43,8 +48,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 	},
 
 	next_phase_button = document.getElementById("next_phase_button"),
-
-
+	next_phase_button_statement = document.querySelector("#next_phase_button_statement");
 
 	Rainhards_Army = {
 		shieldbearers : {
@@ -80,7 +84,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 	hits = 0; 
 
 
-function set_army (shields, crossbows, currentArmy){
+function set_army(shields, crossbows, currentArmy){
 	function check_value (value){
 		value = parseInt(value);
 		if(!value || typeof value !== 'number' || value < 0){
@@ -95,8 +99,8 @@ function set_army (shields, crossbows, currentArmy){
 	currentArmy.crossbowmen.n = crossbows;
 }
 
-function view_army (currentArmy){
-	function view_number (unit){
+function view_army(currentArmy){
+	function view_number(unit){
 		unit.html_n.innerHTML = unit.n;
 	}
 	view_number(currentArmy.shieldbearers);
@@ -140,7 +144,6 @@ function check_army_values(){
 //button_fill_in_army.army.onclick = function(){
 	
 	
-	
 
 button_fill_in_Rainhards_army.onclick = function(){
     var numberShieldbearersR = input_Rainhards_shieldbearers.value,
@@ -152,15 +155,15 @@ button_fill_in_Rainhards_army.onclick = function(){
 button_fill_in_Galahads_army.onclick = function(){
     var numberShieldbearersG = input_Galahads_shieldbearers.value,
         numberCrossbowmenG = input_Galahads_crossbowmen.value;
-		set_army(numberShieldbearersG, numberCrossbowmenG, Galahads_Army);	
-		view_army(Galahads_Army);  
+	set_army(numberShieldbearersG, numberCrossbowmenG, Galahads_Army);	
+	view_army(Galahads_Army);  
 }
 
 button_start_the_battle.onclick = function(){
     toggle_view();
     change_screen_content();
 	check_army_values();
-
+	battle_report_round_number.innerHTML = "Runda " + romanize(round);
 	view_battle_report();
 }
 
@@ -222,6 +225,8 @@ function armour_check(allocatedHits, unitsArmour){
 			armourPenetration = Math.floor(Math.random()*100 + 1);
 			console.log("rzut na przebicie pancerza: " + armourPenetration);
 		if(armourPenetration > unitsArmour){
+			/// *** zabezpieczenie
+			//if(casualties)
 			casaulties = casaulties + 1;}
 	}
 	console.log("liczba zabitych to: " + casaulties);
@@ -234,63 +239,109 @@ function Battle_Report(army, hits, hitArray, casaultiesArray){
 	statement.innerHTML = "Uzyskano " + hits + " trafień" + "\n" + "Z czego " + hitArray[0] + " zostało ulokowanych w tarczowników a " + hitArray[1] + " w kuszników" + "\n" + "Poległo " + casaultiesArray[0] + " tarczowników oraz " + casaultiesArray[1] + " kuszników";
 }
 
-//ekran neutralny
-//Dodać raportowanie
-//Dodać ataki Galahada
-//Dodać etap walki wręcz
-//Dodać etap zakończenia rundy
+	//Funkcja pobrana z internetu - zamiana liczby arabskiej na rzymską
+function romanize(num) {
+	var lookup = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},roman = '',i;
+	for ( i in lookup ) {
+	  while ( num >= lookup[i] ) {
+		roman += i;
+		num -= lookup[i];
+	  }
+	}
+	return roman;
+  }
 
 
 //------ Events
-var phase = 1;
+var round = 1,
+	phase = 1,
+	Rainhards_casaualties = 0,
+	Galahads_casaualties = 0;
 
 next_phase_button.onclick = function(){
 	switch(phase){
 		case 1:
-			console.log("***Ostrzał***")
+			console.log("***Faza ostrzału***")
 			var casaultiesArray = [];
-			//Ostrzał kuszników Rainharda
+				//Ostrzał kuszników Rainharda
 			hit_rolls(Rainhards_Army.crossbowmen.n, Rainhards_Army.crossbowmen.attack);
 			hitArray = hits_allocation(hits, Galahads_Army.shieldbearers.n, Galahads_Army.crossbowmen.n);
 			casaultiesArray[0] = armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
+			Galahads_Army.shieldbearers.n = Galahads_Army.shieldbearers.n - casaultiesArray[0];
 			casaultiesArray[1] = armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
+			Galahads_Army.crossbowmen.n = Galahads_Army.crossbowmen.n - casaultiesArray[1];
 			Battle_Report("Rainhard", hits, hitArray, casaultiesArray);
-			//Ostrzał kuszników Galahada
+				//Aktualizacja licznika ran Galahada
+			Galahads_casaualties = Galahads_casaualties + casaultiesArray[0] + casaultiesArray[1];
+			casaulties_meter_Galahad.innerHTML = Galahads_casaualties;
+				//Ostrzał kuszników Galahada
 			hit_rolls(Galahads_Army.crossbowmen.n, Galahads_Army.crossbowmen.attack);
 			hitArray = hits_allocation(hits, Rainhards_Army.shieldbearers.n, Rainhards_Army.crossbowmen.n);
 			casaultiesArray[0] = armour_check(hitArray[0], Rainhards_Army.shieldbearers.defense);
+			Rainhards_Army.shieldbearers.n = Rainhards_Army.shieldbearers.n - casaultiesArray[0];
 			casaultiesArray[1] = armour_check(hitArray[1], Rainhards_Army.crossbowmen.defense);
+			Rainhards_Army.crossbowmen.n = Rainhards_Army.crossbowmen.n - casaultiesArray[1];
 			Battle_Report("Galahad", hits, hitArray, casaultiesArray);
-			///dodać zmianę napisu pod przyciskiem oraz zmianę ilustracji,
+				//Aktualizacja licznika ran Rainharda
+			Rainhards_casaualties = Rainhards_casaualties + casaultiesArray[0] + casaultiesArray[1];
+			casaulties_meter_Rainhard.innerHTML = Rainhards_casaualties;
+				//Zmiana nazwy fazy, obrazka i podpisu pod przyciskiem zmiany fazy
+			battle_report_phase_name.innerHTML = "Faza walki wręcz";
+			battle_report_phase_picture.src = "grafika/WalkaWrecz.jpg";
+			next_phase_button_statement.innerHTML = "Tarczownicy naprzód!";
 			phase = phase + 1;
 			break;
 		case 2: 
-			console.log("***CC***")
+			console.log("***Faza walki wręcz***")
 			var casaultiesArray = [];
-			//Natarcie tarczowników Rainharda
+				//Natarcie tarczowników Rainharda
 			hit_rolls(Rainhards_Army.shieldbearers.n, Rainhards_Army.shieldbearers.attack);
 			hitArray = hits_allocation(hits, Galahads_Army.shieldbearers.n, Galahads_Army.crossbowmen.n);
 			casaultiesArray[0] = armour_check(hitArray[0], Galahads_Army.shieldbearers.defense);
+			Galahads_Army.shieldbearers.n = Galahads_Army.shieldbearers.n - casaultiesArray[0];
 			casaultiesArray[1] = armour_check(hitArray[1], Galahads_Army.crossbowmen.defense);
-			Battle_Report("Rainhard", hits, hitArray, casaultiesArray);			
-			//Natarcie tarczowników Galahada
+			Galahads_Army.crossbowmen.n = Galahads_Army.crossbowmen.n - casaultiesArray[1];
+			Battle_Report("Rainhard", hits, hitArray, casaultiesArray);		
+				//Aktualizacja licznika ran Galahada
+			Galahads_casaualties = Galahads_casaualties + casaultiesArray[0] + casaultiesArray[1];
+			casaulties_meter_Galahad.innerHTML = Galahads_casaualties;	
+				//Natarcie tarczowników Galahada
 			hit_rolls(Galahads_Army.shieldbearers.n, Galahads_Army.shieldbearers.attack);
 			hitArray = hits_allocation(hits, Rainhards_Army.shieldbearers.n, Rainhards_Army.crossbowmen.n);
 			casaultiesArray[0] = armour_check(hitArray[0], Rainhards_Army.shieldbearers.defense);
+			Rainhards_Army.shieldbearers.n = Rainhards_Army.shieldbearers.n - casaultiesArray[0];
 			casaultiesArray[1] = armour_check(hitArray[1], Rainhards_Army.crossbowmen.defense);
+			Rainhards_Army.crossbowmen.n = Rainhards_Army.crossbowmen.n - casaultiesArray[0];
 			Battle_Report("Galahad", hits, hitArray, casaultiesArray);
-			///dodać zmianę napisu pod przyciskiem oraz zmianę ilustracji,
+				//Aktualizacja licznika ran Rainharda
+			Rainhards_casaualties = Rainhards_casaualties + casaultiesArray[0] + casaultiesArray[1];
+			casaulties_meter_Rainhard.innerHTML = Rainhards_casaualties;
+				//Zmiana nazwy fazy, obrazka i podpisu pod przyciskiem zmiany fazy
+			battle_report_phase_name.innerHTML = "Faza przegrupowania";
+			battle_report_phase_picture.src = "grafika/Przegrupowanie1.jpg";
+			next_phase_button_statement.innerHTML = "Przegrupować się!";
 			phase = phase + 1;
 			break;		   
 		case 3: 
 			///kliknięcie w przycisk spowoduje wyświetlenie zbiorczego raportu oraz zamieni przycisk na przycisk zamknięcia. 
-			console.log("***Koniec***")
-			close_battle_report;
-			phase = 1;	
+			console.log("***Koniec rundy walki***");
+			view_army(Rainhards_Army);
+			view_army(Galahads_Army);
+			close_battle_report();
+			battle_report_phase_picture.src = "grafika/Faza_ostrzału.jpg";
+			phase = 1;
+			round = round + 1;	
 			break; 
 		default: 
-			///jakiś komunikat
 	}
 }
 
-battle_report_close_button.onclick = close_battle_report;
+//battle_report_close_button.onclick = close_battle_report;
+
+
+//aktualizacja ekranu głównego po rozpoczęciu bitwy - usunięcie zbędnych pól
+//Dodać etap zakończenia rundy - co po zamknieciu ekranu bitwy
+//zakończenie bitwy - jedna armia zniszczona
+//zabezpieczenie przed zerową armią przeciwnika
+
+//CSSy

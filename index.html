@@ -22,7 +22,6 @@
 
 		.Start_the_battle{width: 100%; float: left; text-align: center;}
 
-
 		/*Raport bitewny*/ 
 		#battle_report{
 			display: none;
@@ -50,6 +49,7 @@
 
 		#round{text-align: center; font-weight: bold; font-size: 30px;}
 		#phase{text-align: center; font-weight: bold; font-size: 22px;}
+		#next_phase_button_statement{text-align: center; font-weight: bold; font-size: 22px;}
 		#phase_1_picture{}
 
 		/* .army_chooser{
@@ -61,22 +61,21 @@
 
 		.close_battle_report{position: absolute; right: 0; margin: 10px;}
 
-.left {
-width: 100px;
-height: 100px;
-float: left;
-margin-top: 25px;
-margin-left: 75px;
-}
+		.left {
+			width: 100px;
+			height: 100px;
+			float: left;
+			margin-top: 25px;
+			margin-left: 75px;
+		}
 
-.right {
-width: 100px;
-height: 100px;
-float: right;
-margin-top: 25px;
-margin-right: 75px;
-}
-
+		.right {
+			width: 100px;
+			height: 100px;
+			float: right;
+			margin-top: 25px;
+			margin-right: 75px;
+		}
     </style>
 </head>
 <body>
@@ -130,7 +129,7 @@ margin-right: 75px;
 	
 	<div id="battle_report">
 		<div class="title">
-			<button class="close_battle_report close">x</button>
+			<!-- <button class="close_battle_report close">x</button> -->
 			<div id="round">Runda I</div>
 			<div id="phase">Faza ostrzału</div>
 			<img src="grafika/Faza_ostrzału.jpg" id="phase_1_picture"/>
@@ -142,16 +141,16 @@ margin-right: 75px;
 			</div>
 			<div class="Galahads_casualties">
 				<img src="grafika/casualties.png" id="Galahads_casaulties" style="float: right;"/>  
-				<div id="number_of_Rainhards_casualties"></div>
+				<div id="number_of_Galahads_casualties"></div>
 			</div>
 		<div class="battle_reports">
 			<div class="Rainhards_reports left">
 				<img src="grafika/Sztandar1.png" id="Rainhards_banner"/>
-				<div id="Rainhards_statement">sdafasdfasdfsd</div>
+				<div id="Rainhards_statement"></div>
 			</div>
 			<div class="Galahads_reports right">
 				<img src="grafika/Sztandar2.png" id="Galahads_banner"/>
-				<div id="Galahads_statement">dfgsdfgsdfgdfs</div>
+				<div id="Galahads_statement"></div>
 			</div>
 		</div>
 		<div class="next_phase">
