@@ -1,25 +1,12 @@
-var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldbearers_R"),
-    input_Rainhards_crossbowmen = document.getElementsByName("i_number_of_crossbowmen_R")[0],
-
-    number_of_shieldbearers_R = document.getElementById("number_of_shieldbearers_R"),
+var number_of_shieldbearers_R = document.getElementById("number_of_shieldbearers_R"),
     number_of_crossbowmen_R = document.getElementById("number_of_crossbowmen_R"),
-
-	//do wywalenia
-    button_fill_in_Rainhards_army = document.getElementById("b_fill_in_Rainhards_army"),
-
-    input_Galahads_shieldbearers = document.getElementById("i_number_of_shieldbearers_G"),
-    input_Galahads_crossbowmen = document.getElementsByName("i_number_of_crossbowmen_G")[0],
 
     number_of_shieldbearers_G = document.getElementById("number_of_shieldbearers_G"),
     number_of_crossbowmen_G = document.getElementById("number_of_crossbowmen_G"),
 
-	//do wywalenia
-    button_fill_in_Galahads_army = document.getElementById("b_fill_in_Galahads_army"),
-
-	//nowe
 	button_fill_in_army = {
-		Rainhard : document.getElementById("b_fill_in_Rainhards_army"),
-		Galahad : document.getElementById("b_fill_in_Galahads_army")
+		Rainhard : document.querySelector("#b_fill_in_Rainhards_army"),
+		Galahad : document.querySelector("#b_fill_in_Galahads_army")
 	},
 		
     button_start_the_battle = document.getElementById("button_start_the_battle"),
@@ -56,6 +43,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 			defense : 50,
 			n : 0,
 			html_n : number_of_shieldbearers_R
+
 		},
 		crossbowmen : {
 			attack : 45,
@@ -63,6 +51,8 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 			n : 0,
 			html_n : number_of_crossbowmen_R
 		},
+		html_inputShieldbearers : document.querySelector("#i_number_of_shieldbearers_R"),
+		html_inputCrossbowmen : document.querySelector("#i_number_of_crossbowmen_R")
 	},
  
 	Galahads_Army = {
@@ -78,6 +68,8 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 			n : 0,
 			html_n : number_of_crossbowmen_G
 		},
+		html_inputShieldbearers : document.querySelector("#i_number_of_shieldbearers_G"),
+		html_inputCrossbowmen : document.querySelector("#i_number_of_crossbowmen_G")
 	},
 
 	//liczba trafień do ekranu raport bitwy
@@ -116,19 +108,15 @@ function change_screen_content(){
 
 //uzupełnić znikanie pól z pierwszego formularza
 function toggle_view(){
-    picture_banner_Rainhard.setAttribute("class", "hidden");
-	picture_banner_Galahad.setAttribute("class", "hidden");
+    // picture_banner_Rainhard.setAttribute("class", "hidden");
+	// picture_banner_Galahad.setAttribute("class", "hidden");
 	
-	input_Galahads_crossbowmen.setAttribute("class", "hidden");
-	//input_Galahads_crossbowmen.setAttribute("visible");
-
+	// input_Galahads_crossbowmen.setAttribute("class", "hidden");
+	Galahads_Army.html_inputCrossbowmen.setAttribute("hidden", "");
+	Galahads_Army.html_inputShieldbearers.setAttribute("hidden", "");
 
 	//battle_report_window.setAttribute("visible","");
 	//battle_report_window.removeAttribute("visible");
-
-
-
-
 }
 
 function check_army_values(){
@@ -147,21 +135,21 @@ function check_army_values(){
 }
 
 //--------------- Events
-//nowe
-//button_fill_in_army.army.onclick = function(){
-	
-button_fill_in_Rainhards_army.onclick = function(){
-    var numberShieldbearersR = input_Rainhards_shieldbearers.value,
-		numberCrossbowmenR = input_Rainhards_crossbowmen.value;
-	set_army(numberShieldbearersR, numberCrossbowmenR, Rainhards_Army);	
-    view_army(Rainhards_Army);  
-}
+document.body.onclick = function(event){
+	//target to kliknięty obiekt który wywołał zdarzenie - to nie dowolna nazwa
+	var clickedObject = event.target;
+	if(clickedObject === button_fill_in_army.Rainhard){
+		fill_in_army(Rainhards_Army);
+	}else if(clickedObject === button_fill_in_army.Galahad){
+		fill_in_army(Galahads_Army);
+	}
+};
 
-button_fill_in_Galahads_army.onclick = function(){
-    var numberShieldbearersG = input_Galahads_shieldbearers.value,
-        numberCrossbowmenG = input_Galahads_crossbowmen.value;
-	set_army(numberShieldbearersG, numberCrossbowmenG, Galahads_Army);	
-	view_army(Galahads_Army);  
+function fill_in_army(army){
+	var numberOfShieldbearers = army.html_inputShieldbearers.value,
+		numberOfCrossbowmen = army.html_inputCrossbowmen.value;
+	set_army(numberOfShieldbearers, numberOfCrossbowmen, army);
+	view_army(army);
 }
 
 button_start_the_battle.onclick = function(){
@@ -256,8 +244,7 @@ var Rainhards_units = Rainhards_Army.shieldbearers.n + Rainhards_Army.crossbowme
 		console.log("KONIEC BITWY")
 }
 
-
-
+	///Do wyjaśnienia
 	//Funkcja pobrana z internetu - zamiana liczby arabskiej na rzymską
 function romanize(num) {
 	var lookup = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},roman = '',i;
@@ -365,3 +352,64 @@ next_phase_button.onclick = function(){
 // nie wyświetlać ekranu walki od razu po przejściu do bitwy
 
 //CSSy
+
+// Zagadnienia 
+var kolor = [
+	"czerwony",
+	"niebieski",
+	"żółty"
+];
+
+var paleta = {
+	kolorZPalety : kolor[0]
+};
+
+
+//wariant B
+var kolor = {
+	pierwszy:"czerwony",
+	drugi:"niebieski",
+	trzeci:"żółty"
+};
+var paleta = {
+	kolorZPalety : kolor.pierwszy
+};
+
+
+
+
+typy_jednostek={
+	pikinier:{
+		nazwa:"pikinier",
+		atak:1,
+		obrona:10
+	},
+	rycerz:{
+		nazwa:"rycerz",
+		atak:8,
+		obrona:2
+	}
+}
+
+var armia=[];
+
+
+function nowa_jednostka(typ){
+	var nowa_jednostka={},	//pusty obiekt
+		i;
+	//kopiowanie właściwości obiektu
+	//nowa_jednostka.atak = typ.atak;
+	//nowa_jednostka.obrona = typ.obrona;
+	for (i in typ){
+		//kolejna właściwość obiektu 'typ' o nazwie 'i': 'nazwa','atak','obrona' i tak dalej
+		nowa_jednostka[i]=typ[i];
+	}
+	//zwróć nowoutworzoną jednostkę
+	return nowa_jednostka;
+}
+
+
+var i;
+for(i=10;i>0;--i){
+	armia.push(nowa_jednostka(typy_jednostek.pikinier));
+}
