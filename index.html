@@ -76,6 +76,15 @@
 			margin-top: 25px;
 			margin-right: 75px;
 		}
+
+		/* Okno końca bitwy */
+		#end_of_battle_window[visible]{
+		display: block;
+		}
+		
+		#end_of_battle_window > div {position: relative; width: 100%;}
+		#end_of_battle_window .title img {display: block; position: relative; margin: auto; top: 10px;}
+		
     </style>
 </head>
 <body>
@@ -158,6 +167,11 @@
 			<div id="next_phase_button_statement">Strzelać bez rozkazu!</button>
 			<div id="next_phase_statement"></div>
 		</div>
+	</div>
+	
+	<div id="end_of_battle_window">
+		<div class="end_of_battle_window_title title">Bitwa dobiegła końca</div>
+		<div class="end_of_battle_window_winner"></div>
 	</div>
 
     <script src="js/algorytmy.js"></script>
