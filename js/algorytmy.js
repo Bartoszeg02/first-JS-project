@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldbearers_R"),
 	input_Rainhards_crossbowmen = document.getElementsByName("i_number_of_crossbowmen_R")[0],
 	label_number_of_Rainhards_shieldbearers = document.getElementsByName("i_number_of_shieldbearers_R"),
@@ -24,6 +25,17 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 	button_fill_in_army = {
 		Rainhard: document.getElementById("b_fill_in_Rainhards_army"),
 		Galahad: document.getElementById("b_fill_in_Galahads_army")
+=======
+var number_of_shieldbearers_R = document.getElementById("number_of_shieldbearers_R"),
+    number_of_crossbowmen_R = document.getElementById("number_of_crossbowmen_R"),
+
+    number_of_shieldbearers_G = document.getElementById("number_of_shieldbearers_G"),
+    number_of_crossbowmen_G = document.getElementById("number_of_crossbowmen_G"),
+
+	button_fill_in_army = {
+		Rainhard : document.querySelector("#b_fill_in_Rainhards_army"),
+		Galahad : document.querySelector("#b_fill_in_Galahads_army")
+>>>>>>> 36f92c4e3cb318b48606d314b9c57d98461c2823
 	},
 
 	button_start_the_battle = document.getElementById("button_start_the_battle"),
@@ -52,6 +64,7 @@ var input_Rainhards_shieldbearers = document.getElementById("i_number_of_shieldb
 	},
 
 	next_phase_button = document.getElementById("next_phase_button"),
+<<<<<<< HEAD
 	next_phase_button_statement = document.querySelector("#next_phase_button_statement"),
 
 	//---------- battle report
@@ -71,6 +84,26 @@ Rainhards_Army = {
 		defense: 30,
 		n: 0,
 		html_n: number_of_crossbowmen_R
+=======
+	next_phase_button_statement = document.querySelector("#next_phase_button_statement");
+
+	Rainhards_Army = {
+		shieldbearers : {
+			attack : 30,
+			defense : 50,
+			n : 0,
+			html_n : number_of_shieldbearers_R
+
+		},
+		crossbowmen : {
+			attack : 45,
+			defense : 30,
+			n : 0,
+			html_n : number_of_crossbowmen_R
+		},
+		html_inputShieldbearers : document.querySelector("#i_number_of_shieldbearers_R"),
+		html_inputCrossbowmen : document.querySelector("#i_number_of_crossbowmen_R")
+>>>>>>> 36f92c4e3cb318b48606d314b9c57d98461c2823
 	},
 },
 
@@ -87,6 +120,8 @@ Rainhards_Army = {
 			n: 0,
 			html_n: number_of_crossbowmen_G
 		},
+		html_inputShieldbearers : document.querySelector("#i_number_of_shieldbearers_G"),
+		html_inputCrossbowmen : document.querySelector("#i_number_of_crossbowmen_G")
 	},
 
 	//liczba trafień do ekranu raport bitwy
@@ -132,6 +167,7 @@ function toggle_view() {
 	//button_fill_in_Rainhards_army.setAttribute("class", "hidden");
 	//button_fill_in_Rainhards_army.removeAttribute("visible");
 
+<<<<<<< HEAD
 
 	input_Galahads_shieldbearers.setAttribute("class", "hidden");
 	input_Galahads_crossbowmen.setAttribute("class", "hidden");
@@ -140,6 +176,16 @@ function toggle_view() {
 	//button_fill_in_Galahads_army.setAttribute("class", "hidden");
 	///*** nie działa
 	//input_Galahads_crossbowmen.setAttribute("visible");
+=======
+//uzupełnić znikanie pól z pierwszego formularza
+function toggle_view(){
+    // picture_banner_Rainhard.setAttribute("class", "hidden");
+	// picture_banner_Galahad.setAttribute("class", "hidden");
+	
+	// input_Galahads_crossbowmen.setAttribute("class", "hidden");
+	Galahads_Army.html_inputCrossbowmen.setAttribute("hidden", "");
+	Galahads_Army.html_inputShieldbearers.setAttribute("hidden", "");
+>>>>>>> 36f92c4e3cb318b48606d314b9c57d98461c2823
 
 	//battle_report_window.setAttribute("visible","");
 	//battle_report_window.removeAttribute("visible");
@@ -161,6 +207,7 @@ function check_army_values() {
 }
 
 //--------------- Events
+<<<<<<< HEAD
 //nowe
 //button_fill_in_army.army.onclick = function(){
 
@@ -176,6 +223,23 @@ button_fill_in_Galahads_army.onclick = function () {
 		numberCrossbowmenG = input_Galahads_crossbowmen.value;
 	set_army(numberShieldbearersG, numberCrossbowmenG, Galahads_Army);
 	view_army(Galahads_Army);
+=======
+document.body.onclick = function(event){
+	//target to kliknięty obiekt który wywołał zdarzenie - to nie dowolna nazwa
+	var clickedObject = event.target;
+	if(clickedObject === button_fill_in_army.Rainhard){
+		fill_in_army(Rainhards_Army);
+	}else if(clickedObject === button_fill_in_army.Galahad){
+		fill_in_army(Galahads_Army);
+	}
+};
+
+function fill_in_army(army){
+	var numberOfShieldbearers = army.html_inputShieldbearers.value,
+		numberOfCrossbowmen = army.html_inputCrossbowmen.value;
+	set_army(numberOfShieldbearers, numberOfCrossbowmen, army);
+	view_army(army);
+>>>>>>> 36f92c4e3cb318b48606d314b9c57d98461c2823
 }
 
 button_start_the_battle.onclick = function () {
@@ -264,6 +328,7 @@ function Battle_Report(army, hits, hitArray, casaultiesArray) {
 }
 
 ///W BUDOWIE
+<<<<<<< HEAD
 function check_end_of_battle_conditions() {
 	var Rainhards_units = Rainhards_Army.shieldbearers.n + Rainhards_Army.crossbowmen.n,
 		Galahads_units = Galahads_Army.shieldbearers.n + Galahads_Army.crossbowmen.n;
@@ -275,6 +340,17 @@ function check_end_of_battle_conditions() {
 };
 
 //Funkcja pobrana z internetu - zamiana liczby arabskiej na rzymską
+=======
+function check_end_of_battle_conditions(){
+var Rainhards_units = Rainhards_Army.shieldbearers.n + Rainhards_Army.crossbowmen.n,
+	Galahads_units = Galahads_Army.shieldbearers.n + Galahads_Army.crossbowmen.n;
+	if(Rainhards_units <= 0 || Galahads_units <= 0)
+		console.log("KONIEC BITWY")
+}
+
+	///Do wyjaśnienia
+	//Funkcja pobrana z internetu - zamiana liczby arabskiej na rzymską
+>>>>>>> 36f92c4e3cb318b48606d314b9c57d98461c2823
 function romanize(num) {
 	var lookup = { M: 1000, CM: 900, D: 500, CD: 400, C: 100, XC: 90, L: 50, XL: 40, X: 10, IX: 9, V: 5, IV: 4, I: 1 }, roman = '', i;
 	for (i in lookup) {
@@ -382,3 +458,64 @@ next_phase_button.onclick = function () {
 // nie wyświetlać ekranu walki od razu po przejściu do bitwy
 
 //CSSy
+
+// Zagadnienia 
+var kolor = [
+	"czerwony",
+	"niebieski",
+	"żółty"
+];
+
+var paleta = {
+	kolorZPalety : kolor[0]
+};
+
+
+//wariant B
+var kolor = {
+	pierwszy:"czerwony",
+	drugi:"niebieski",
+	trzeci:"żółty"
+};
+var paleta = {
+	kolorZPalety : kolor.pierwszy
+};
+
+
+
+
+typy_jednostek={
+	pikinier:{
+		nazwa:"pikinier",
+		atak:1,
+		obrona:10
+	},
+	rycerz:{
+		nazwa:"rycerz",
+		atak:8,
+		obrona:2
+	}
+}
+
+var armia=[];
+
+
+function nowa_jednostka(typ){
+	var nowa_jednostka={},	//pusty obiekt
+		i;
+	//kopiowanie właściwości obiektu
+	//nowa_jednostka.atak = typ.atak;
+	//nowa_jednostka.obrona = typ.obrona;
+	for (i in typ){
+		//kolejna właściwość obiektu 'typ' o nazwie 'i': 'nazwa','atak','obrona' i tak dalej
+		nowa_jednostka[i]=typ[i];
+	}
+	//zwróć nowoutworzoną jednostkę
+	return nowa_jednostka;
+}
+
+
+var i;
+for(i=10;i>0;--i){
+	armia.push(nowa_jednostka(typy_jednostek.pikinier));
+}

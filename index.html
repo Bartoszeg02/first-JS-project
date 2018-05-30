@@ -1,29 +1,85 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
-    <title>Bitwa</title>
-    <style>
-        /* body{width:100%; background-image: url("grafika/tłum.jpg"); Background-repeat: no-repeat; Background-size: cover}
+	<title>Bitwa</title>
+	<style>
+		/* body{width:100%; background-image: url("grafika/tłum.jpg"); Background-repeat: no-repeat; Background-size: cover}
         body{width:100%; background-color: black;} */
-        body{width:100%; background-color: darkgrey; margin: 0;}
-        .x50{width:50%; float: left; box-sizing: border-box; padding: 5%; text-align: center}
-        .rozpocznij_bitwe {display: flex; justify-content: center; width: 100%}
-        h1{margin: 0; padding: 0; position: relative; display: block; font-size: 10px}
-        .visible{display: block;}
-        .hidden{display: none;}
-		
-		.army_chooser{width: 100%; display: block;}
-		.army_chooser > *{width: 100%; display: block;}
-		.army_chooser button{width: 50%; height: 20px; position: relative; left: 25%;}
 
-		.unit{margin:25px;}
-		.strength{font-size: 25px; font-weight: bold; min-height: 30px;}
+		body {
+			width: 100%;
+			background-color: darkgrey;
+			margin: 0;
+		}
 
-		.Start_the_battle{width: 100%; float: left; text-align: center;}
+		.x50 {
+			width: 50%;
+			float: left;
+			box-sizing: border-box;
+			padding: 5%;
+			text-align: center
+		}
 
-		/*Raport bitewny*/ 
-		#battle_report{
+		.rozpocznij_bitwe {
+			display: flex;
+			justify-content: center;
+			width: 100%
+		}
+
+		h1 {
+			margin: 0;
+			padding: 0;
+			position: relative;
+			display: block;
+			font-size: 10px
+		}
+
+		.visible {
+			display: block;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		.army_chooser {
+			width: 100%;
+			display: block;
+		}
+
+		.army_chooser>* {
+			width: 100%;
+			display: block;
+		}
+
+		.army_chooser button {
+			width: 50%;
+			height: 20px;
+			position: relative;
+			left: 25%;
+		}
+
+		.unit {
+			margin: 25px;
+		}
+
+		.strength {
+			font-size: 25px;
+			font-weight: bold;
+			min-height: 30px;
+		}
+
+		.Start_the_battle {
+			width: 100%;
+			float: left;
+			text-align: center;
+		}
+
+		/*Raport bitewny*/
+
+		#battle_report {
 			display: none;
 			position: fixed;
 			width: 50%;
@@ -38,28 +94,59 @@
 			opacity: 0.9; */
 		}
 
-		#battle_report[visible]{
-		display: block;
-		}
-		
-		#battle_report > div {position: relative; width: 100%;}
-		#battle_report .title img {display: block; position: relative; margin: auto; top: 10px;}
+		/* [xxx] - obiekt o atrybucie xxx */
 
-		.battle_reports{overflow: auto; min-height: 300px;}
-
-		#round{text-align: center; font-weight: bold; font-size: 30px;}
-		#phase{text-align: center; font-weight: bold; font-size: 22px;}
-		#next_phase_button_statement{text-align: center; font-weight: bold; font-size: 22px;}
-		#phase_1_picture{}
-
-		/* .army_chooser{
+		#battle_report[visible] {
 			display: block;
 		}
-		.army_chooser[visible]{
-			display: none;
-		} */
 
-		.close_battle_report{position: absolute; right: 0; margin: 10px;}
+		#battle_report>div {
+			position: relative;
+			width: 100%;
+		}
+
+		#battle_report .title img {
+			display: block;
+			position: relative;
+			margin: auto;
+			top: 10px;
+		}
+
+		.battle_reports {
+			overflow: auto;
+			min-height: 300px;
+		}
+
+		#round {
+			text-align: center;
+			font-weight: bold;
+			font-size: 30px;
+		}
+
+		#phase {
+			text-align: center;
+			font-weight: bold;
+			font-size: 22px;
+		}
+
+		#next_phase_button_statement {
+			text-align: center;
+			font-weight: bold;
+			font-size: 22px;
+		}
+
+
+		/*  .army_chooser [name="xxx"][visible]  -> klasa army_chooser -> name xxx -> atrybut bisible*/
+
+		.army_chooser [hidden] {
+			display: none;
+		}
+
+		.close_battle_report {
+			position: absolute;
+			right: 0;
+			margin: 10px;
+		}
 
 		.left {
 			width: 100px;
@@ -76,6 +163,7 @@
 			margin-top: 25px;
 			margin-right: 75px;
 		}
+<<<<<<< HEAD
 
 		/* Okno końca bitwy */
 		#end_of_battle_window[visible]{
@@ -86,86 +174,106 @@
 		#end_of_battle_window .title img {display: block; position: relative; margin: auto; top: 10px;}
 		
     </style>
+=======
+	</style>
+>>>>>>> 36f92c4e3cb318b48606d314b9c57d98461c2823
 </head>
+
 <body>
-    <center><img src="grafika/Przygotowanie.jpg" id="main_picture_1"/></center>
-    <center><h2 id='title'>Przygotuj armie</h2></center>
+	<center>
+		<img src="grafika/Przygotowanie.jpg" id="main_picture_1" />
+	</center>
+	<center>
+		<h2 id='title'>Przygotuj armie</h2>
+	</center>
 
-    <div class="x50">
-        <img src="grafika/Sztandar1.png" id="banner_Rainhard"/>
-        <h3>armia Sir Rainharda</h3>
+	<div class="x50">
+		<img src="grafika/Sztandar1.png" id="banner_Rainhard" />
+		<h3>armia Sir Rainharda</h3>
 
-        <div class="fill_in_R_army army_chooser">
-            <label style="padding-right: 23px;">liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_R"></label>            
-            <label>liczba kuszników: <input type="text" name="i_number_of_crossbowmen_R"></label>
-            <button id="b_fill_in_Rainhards_army">Wprowadź wojska Rainharda</button>
-        </div>
-        <div id="Rainhards_army" class="army">
+		<div class="fill_in_R_army army_chooser">
+			<label style="padding-right: 23px;">liczba tarczowników:
+				<input type="text" id="i_number_of_shieldbearers_R">
+			</label>
+			<label>liczba kuszników:
+				<input type="text" id="i_number_of_crossbowmen_R">
+			</label>
+			<button id="b_fill_in_Rainhards_army">Wprowadź wojska Rainharda</button>
+		</div>
+		<div id="Rainhards_army" class="army">
 			<div class="unit">
-         	   <img src="grafika/RolandT.jpg"/>  
+				<img src="grafika/RolandT.jpg" />
 				<div class="strength" id="number_of_shieldbearers_R"></div>
 			</div>
 			<div class="unit">
-           		<img src="grafika/RolandK.jpg"/>  
-				<div class="strength" id="number_of_crossbowmen_R"></div>  
-			</div>
-        </div>
-    </div>
-    <div class="x50">
-        <img src="grafika/Sztandar2.png" id="banner_Galahad"/>
-        <h3>armia Sir Galahada</h3>
-    
-        <div class="fill_in_G_army army_chooser">
-            <label style="padding-right: 23px;">liczba tarczowników: <input type="text" id="i_number_of_shieldbearers_G"></label>
-            <label>liczba kuszników: <input type="text" name="i_number_of_crossbowmen_G"></label>
-            <button id="b_fill_in_Galahads_army">Wprowadź wojska Galahada</button>
-        </div>
-        <div id="Galahads_army" class="army">
-			<div class="unit">
-				<img src="grafika/GalahadT.jpg"/>  
-				<div class="strength" id="number_of_shieldbearers_G"></div>
-			</div>
-			<div class="unit">
-				<img src="grafika/GalahadK.jpg"/>  
-				<div class="strength" id="number_of_crossbowmen_G"></div> 
+				<img src="grafika/RolandK.jpg" />
+				<div class="strength" id="number_of_crossbowmen_R"></div>
 			</div>
 		</div>
 	</div>
-    <div class="Start_the_battle">
-        <input type="image" src="grafika/bitwa1.png" id="button_start_the_battle"/>
-        <center><h2 id="start_battle_inscription">Rozpocznij bitwę!</h2></center>
+	<div class="x50">
+		<img src="grafika/Sztandar2.png" id="banner_Galahad" />
+		<h3>armia Sir Galahada</h3>
+
+		<div class="fill_in_G_army army_chooser">
+			<label style="padding-right: 23px;">liczba tarczowników:
+				<input type="text" id="i_number_of_shieldbearers_G">
+			</label>
+			<label>liczba kuszników:
+				<input type="text" id="i_number_of_crossbowmen_G">
+			</label>
+			<button id="b_fill_in_Galahads_army">Wprowadź wojska Galahada</button>
+		</div>
+		<div id="Galahads_army" class="army">
+			<div class="unit">
+				<img src="grafika/GalahadT.jpg" />
+				<div class="strength" id="number_of_shieldbearers_G"></div>
+			</div>
+			<div class="unit">
+				<img src="grafika/GalahadK.jpg" />
+				<div class="strength" id="number_of_crossbowmen_G"></div>
+			</div>
+		</div>
 	</div>
-	
+	<div class="Start_the_battle">
+		<input type="image" src="grafika/bitwa1.png" id="button_start_the_battle" />
+		<center>
+			<h2 id="start_battle_inscription">Rozpocznij bitwę!</h2>
+		</center>
+	</div>
+
 	<div id="battle_report">
 		<div class="title">
 			<!-- <button class="close_battle_report close">x</button> -->
 			<div id="round">Runda I</div>
 			<div id="phase">Faza ostrzału</div>
-			<img src="grafika/Faza_ostrzału.jpg" id="phase_1_picture"/>
+			<img src="grafika/Faza_ostrzału.jpg" id="phase_1_picture" />
 		</div>
-		<div class="battle_casualties">	
+		<div class="battle_casualties">
 			<div class="Rainhards_casualties">
-				<img src="grafika/casualties.png" id="Rainhards_casaulties" style="float: left;"/>  
+				<img src="grafika/casualties.png" id="Rainhards_casaulties" style="float: left;" />
 				<div id="number_of_Rainhards_casualties"></div>
 			</div>
 			<div class="Galahads_casualties">
-				<img src="grafika/casualties.png" id="Galahads_casaulties" style="float: right;"/>  
+				<img src="grafika/casualties.png" id="Galahads_casaulties" style="float: right;" />
 				<div id="number_of_Galahads_casualties"></div>
 			</div>
-		<div class="battle_reports">
-			<div class="Rainhards_reports left">
-				<img src="grafika/Sztandar1.png" id="Rainhards_banner"/>
-				<div id="Rainhards_statement"></div>
+			<div class="battle_reports">
+				<div class="Rainhards_reports left">
+					<img src="grafika/Sztandar1.png" id="Rainhards_banner" />
+					<div id="Rainhards_statement"></div>
+				</div>
+				<div class="Galahads_reports right">
+					<img src="grafika/Sztandar2.png" id="Galahads_banner" />
+					<div id="Galahads_statement"></div>
+				</div>
 			</div>
-			<div class="Galahads_reports right">
-				<img src="grafika/Sztandar2.png" id="Galahads_banner"/>
-				<div id="Galahads_statement"></div>
+			<div class="next_phase">
+				<img src="grafika/NextPhaseButton.jpg" id="next_phase_button" />
+				<div id="next_phase_button_statement">Strzelać bez rozkazu!</button>
+					<div id="next_phase_statement"></div>
+				</div>
 			</div>
-		</div>
-		<div class="next_phase">
-			<img src="grafika/NextPhaseButton.jpg" id="next_phase_button"/>
-			<div id="next_phase_button_statement">Strzelać bez rozkazu!</button>
-			<div id="next_phase_statement"></div>
 		</div>
 	</div>
 	
@@ -174,8 +282,89 @@
 		<div class="end_of_battle_window_winner"></div>
 	</div>
 
-    <script src="js/algorytmy.js"></script>
+
+
+
+
+	<style>
+		.dolny_pas{
+			position:fixed;	/*obiekt przymocowany do ekranu*/
+			/*position:absolute;*/	/*obiekt przymocowany do strony*/
+			/*position:relative;*/	/*obiekt ustawiony względem innych obiektów*/
+
+			bottom:0;
+			height:40%;
+			width:100%;
+
+			background-color:#844;
+			
+			/* background-image:url("grafika/Przygotowanie.jpg"); */
+			background-repeat:no-repeat;
+			/* background-size:100%; */	/*wartość x wypełnia całą szerokość, a y się dostosowuje, tak by zachować proporcje obrazu ale przycinając obraz*/
+			/*background-size:100% 100%;*/	/*wartość x i wartość y zakrywają całą powierzchnię bloku, deformując obraz ale cały jest widoczny*/
+			background-size:auto 80%;
+			/* background-size:cover; */	/*cały blok wypełniony obrazkiem, z zachowaniem proprocji ale przycina obraz*/
+			/*background-size:contain;*/	/*cały obrazek mieści się w bloku, bez deformacji i przycięć, ale nie wypełnia całości*/
+		
+			background-position:center;
+			background-position:10px 20px;
+			background-position:50% 50%;
+		}
+		.oddzial{
+			position:absolute;
+			width:10%;
+			/* height:10%; */
+			padding-top:10%;	/*aby zachować kwadratowe proporcje obrazka*/
+
+			background-repeat:no-repeat;
+			background-size:cover;
+			background-position:center;
+		}
+		.oddzial.ludzie{
+
+			top:10%;
+			left:20%;
+			/*
+			bottom:10%;
+			right:10%;
+			*/
+
+
+			top:50%;
+			left:31%;
+			transform: rotate(669deg);
+
+
+			background-image:url("grafika/RolandK.jpg");
+		}
+		.oddzial.szkielety{
+
+
+			top:10%;
+			left:10%;
+			transform: rotate(100deg);
+
+
+			background-image:url("grafika/GalahadK.jpg");
+		}
+
+
+
+	</style>
+	<div class="dolny_pas">
+		<div class="oddzial ludzie"></div>
+		<div class="oddzial szkielety"></div>
+	</div>
+
+
+
+
+
+
+	<script src="js/algorytmy.js"></script>
+
 </body>
+
 </html>
 
 <!--
